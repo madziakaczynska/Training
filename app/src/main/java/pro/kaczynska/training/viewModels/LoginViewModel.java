@@ -21,8 +21,8 @@ public class LoginViewModel extends ViewModel {
     private final String PASSWORD_PATTERN;
     public ObservableString email = new ObservableString();
     public ObservableString password = new ObservableString();
-    public ObservableField<String> emailError = new ObservableField<>();
-    public ObservableField<String> passwordError = new ObservableField<>();
+    public ObservableField<String> emailError = new ObservableField();
+    public ObservableField<String>  passwordError = new ObservableField();
 
 
     public LoginViewModel(Context context) {
@@ -32,6 +32,7 @@ public class LoginViewModel extends ViewModel {
         PASSWORD_PATTERN = context.getResources().getString(R.string.password_pattern);
         init();
     }
+
 
     @BindingConversion
     public static String convertBindableToString(

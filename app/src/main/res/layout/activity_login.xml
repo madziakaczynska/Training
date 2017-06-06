@@ -64,8 +64,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/email_hint"
                 android:inputType="textEmailAddress"
-                android:text="@{loginViewModel.email}"
-                android:addTextChangedListener="@{loginViewModel.watcher}"/>
+                android:text="@{loginViewModel.email}" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout

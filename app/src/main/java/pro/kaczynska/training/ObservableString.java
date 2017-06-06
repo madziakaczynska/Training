@@ -22,12 +22,4 @@ public class ObservableString extends BaseObservable {
         this.text = text;
         notifyChange();
     }
-
-    public TextWatcher watcher = new TextWatcherAdapter() {
-        @Override public void afterTextChanged(Editable s) {
-            if (!Objects.equals(text, s.toString())) {
-                text = s.toString();
-            }
-        }
-    };
 }
