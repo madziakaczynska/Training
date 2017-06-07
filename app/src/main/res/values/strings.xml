@@ -10,6 +10,7 @@
     <string name="password_pattern">[a-zA-Z0-9\\!\\@\\#\\$]{8,24}</string>
     <string name="error_email">Invalid email</string>
     <string name="error_password">Invalid password</string>
+    <string name="error_password_too_short">Password is too short</string>
     <string name="error_empty_field">Field required</string>
 </resources>
 
