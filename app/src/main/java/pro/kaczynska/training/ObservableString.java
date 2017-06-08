@@ -14,7 +14,6 @@ public class ObservableString extends BaseObservable {
         return text;
     }
 
-
     public void set(String text) {
         if (Objects.equals(this.text, text)) {
             return;

@@ -1,6 +1,6 @@
 package pro.kaczynska.training;
 
-import android.databinding.ObservableField;
+import javax.inject.Inject;
 
 /**
  * Created by mky on 07.06.2017.
@@ -8,20 +8,20 @@ import android.databinding.ObservableField;
 
 public abstract class ValidateFieldStrategy {
 
-    private ErrorMessage errorMessage;
+    @Inject private ErrorMessage errorMessage;
 
     public ValidateFieldStrategy(ErrorMessage errorMessage) {
         this.errorMessage = errorMessage;
     }
 
     public void checkField(ObservableString field, ObservableString error) {
+        String errorText = null;
         if (!isFieldFilled(field)) {
-            error.set(errorMessage.FIELD_REQUIRED);
+            errorText = errorMessage.FIELD_REQUIRED;
         } else if (!isValueValid(field)) {
-            error.set(errorMessage.FIELD_INVALID);
-        } else {
-            error.set(null);
+            errorText = errorMessage.FIELD_INVALID;
         }
+        error.set(errorText);
     }
 
     abstract boolean isFieldFilled(ObservableString field);

@@ -1,7 +1,5 @@
 package pro.kaczynska.training;
 
-import android.databinding.ObservableField;
-
 import java.util.regex.Pattern;
 
 /**
@@ -17,12 +15,12 @@ public class PasswordValidationStrategy extends ValidateFieldStrategy {
     }
 
     @Override
-    boolean isFieldFilled(ObservableField<String> field) {
+    boolean isFieldFilled(ObservableString field) {
         return field.get().length() > 5;
     }
 
     @Override
-    boolean isValueValid(ObservableField<String> field) {
+    boolean isValueValid(ObservableString field) {
         Pattern fieldPattern = Pattern.compile(PASSWORD_PATTERN);
         return fieldPattern.matcher(field.get()).matches();
     }

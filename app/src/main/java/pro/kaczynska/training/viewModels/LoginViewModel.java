@@ -3,12 +3,8 @@ package pro.kaczynska.training.viewModels;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.content.res.Resources;
-import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
 import android.databinding.Observable;
-import android.databinding.ObservableField;
-import android.support.design.widget.TextInputLayout;
-import android.widget.EditText;
 
 import pro.kaczynska.training.EmailValidationStrategy;
 import pro.kaczynska.training.ErrorMessage;
@@ -16,7 +12,6 @@ import pro.kaczynska.training.ObservableString;
 import pro.kaczynska.training.PasswordValidationStrategy;
 import pro.kaczynska.training.R;
 import pro.kaczynska.training.ValidateFieldStrategy;
-import pro.kaczynska.training.views.FieldObservable;
 
 
 public class LoginViewModel extends ViewModel {
@@ -37,10 +32,22 @@ public class LoginViewModel extends ViewModel {
         String errorPasswordRequired = resources.getString(R.string.error_empty_field);
         String errorPasswordInvalid = resources.getString(R.string.error_email);
 
-        EmailValidationStrategy emailValidationStrategy = new EmailValidationStrategy(new ErrorMessage(errorEmailRequired, errorEmailInvalid));
+        final EmailValidationStrategy emailValidationStrategy = new EmailValidationStrategy(new ErrorMessage(errorEmailRequired, errorEmailInvalid));
         PasswordValidationStrategy passwordValidationStrategy = new PasswordValidationStrategy(new ErrorMessage(errorPasswordRequired, errorPasswordInvalid));
-        addOnPropertyChangedCallback(email, emailError, emailValidationStrategy);
-        addOnPropertyChangedCallback(password, passwordError, passwordValidationStrategy);
+        email.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable observable, int i) {
+                emailValidationStrategy.checkField(email, emailError);
+            }
+        });
+//        addOnPropertyChangedCallback(email, emailError, emailValidationStrategy);
+//        addOnPropertyChangedCallback(password, passwordError, passwordValidationStrategy);
+    }
+
+    @BindingConversion
+    public static String convertBindableToString(
+            ObservableString observableString) {
+        return observableString.get();
     }
 
     private void addOnPropertyChangedCallback(final ObservableString field, final ObservableString error, final ValidateFieldStrategy strategy) {
@@ -52,8 +59,4 @@ public class LoginViewModel extends ViewModel {
         });
     }
 
-    @BindingAdapter("app:error")
-    public static void setError(TextInputLayout layout, ObservableString error){
-        layout.setError(error.get());
-    }
 }

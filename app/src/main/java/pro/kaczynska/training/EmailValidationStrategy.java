@@ -16,26 +16,13 @@ public class EmailValidationStrategy extends ValidateFieldStrategy {
     }
 
     @Override
-    boolean isFieldFilled(ObservableField<String> field) {
+    boolean isFieldFilled(ObservableString field) {
         return !field.get().isEmpty();
     }
 
     @Override
-    boolean isValueValid(ObservableField<String> field) {
+    boolean isValueValid(ObservableString field) {
         Pattern fieldPattern = Patterns.EMAIL_ADDRESS;
         return fieldPattern.matcher(field.get()).matches();
     }
-
-
-//
-//    @Override
-//    public boolean isValueValid() {
-//        Pattern fieldPattern = Patterns.EMAIL_ADDRESS;
-//        return fieldPattern.matcher(field.get()).matches();
-//    }
-//
-//    @Override
-//    public boolean isFieldFilled() {
-//        return !field.isEmpty();
-//    }
 }
