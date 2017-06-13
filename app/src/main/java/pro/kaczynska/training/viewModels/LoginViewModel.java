@@ -1,47 +1,33 @@
 package pro.kaczynska.training.viewModels;
 
 import android.arch.lifecycle.ViewModel;
-import android.content.Context;
-import android.content.res.Resources;
 import android.databinding.BindingConversion;
 import android.databinding.Observable;
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableInt;
+import android.view.View;
+import android.widget.EditText;
 
-import pro.kaczynska.training.EmailValidationStrategy;
-import pro.kaczynska.training.ErrorMessage;
 import pro.kaczynska.training.ObservableString;
-import pro.kaczynska.training.PasswordValidationStrategy;
 import pro.kaczynska.training.R;
-import pro.kaczynska.training.ValidateFieldStrategy;
+import pro.kaczynska.training.strategy.EmailValidationStrategy;
+import pro.kaczynska.training.strategy.PasswordValidationStrategy;
 
 
 public class LoginViewModel extends ViewModel {
+
+
     public ObservableString emailError = new ObservableString();
     public ObservableString passwordError = new ObservableString();
     public ObservableString email = new ObservableString();
     public ObservableString password = new ObservableString();
+    private ObservableInt textStyle = new ObservableInt(R.style.textinput_inprogress);
+    private ObservableBoolean errorEnabled = new ObservableBoolean(false);
+    private EmailValidationStrategy emailValidationStrategy;
+    private PasswordValidationStrategy passwordValidationStrategy;
 
-
-
-    public LoginViewModel(Context context) {
-        init(context.getResources());
-    }
-
-    private void init(Resources resources) {
-        String errorEmailRequired = resources.getString(R.string.error_empty_field);
-        String errorEmailInvalid = resources.getString(R.string.error_email);
-        String errorPasswordRequired = resources.getString(R.string.error_empty_field);
-        String errorPasswordInvalid = resources.getString(R.string.error_email);
-
-        final EmailValidationStrategy emailValidationStrategy = new EmailValidationStrategy(new ErrorMessage(errorEmailRequired, errorEmailInvalid));
-        PasswordValidationStrategy passwordValidationStrategy = new PasswordValidationStrategy(new ErrorMessage(errorPasswordRequired, errorPasswordInvalid));
-        email.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable observable, int i) {
-                emailValidationStrategy.checkField(email, emailError);
-            }
-        });
-//        addOnPropertyChangedCallback(email, emailError, emailValidationStrategy);
-//        addOnPropertyChangedCallback(password, passwordError, passwordValidationStrategy);
+    public LoginViewModel() {
+        init();
     }
 
     @BindingConversion
@@ -50,13 +36,41 @@ public class LoginViewModel extends ViewModel {
         return observableString.get();
     }
 
-    private void addOnPropertyChangedCallback(final ObservableString field, final ObservableString error, final ValidateFieldStrategy strategy) {
-        field.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+    public ObservableInt getTextStyle() {
+        return textStyle;
+    }
+
+    public ObservableBoolean getErrorEnabled() {
+        return errorEnabled;
+    }
+
+    private void init() {
+        emailValidationStrategy = new EmailValidationStrategy();
+        emailValidationStrategy.setCheckNotRequired(true);
+        passwordValidationStrategy = new PasswordValidationStrategy();
+        email.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable observable, int i) {
-                strategy.checkField(field, error);
+                emailValidationStrategy.checkField(email, emailError);
+            }
+        });
+        password.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable observable, int i) {
+                passwordValidationStrategy.checkField(password, passwordError);
             }
         });
     }
 
+    public EditText.OnFocusChangeListener setOnFocusChanged() {
+        return new EditText.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    emailValidationStrategy.setCheckNotRequired(false);
+                    emailValidationStrategy.checkField(email, emailError);
+                }
+            }
+        };
+    }
 }

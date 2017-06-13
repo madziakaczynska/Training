@@ -1,28 +1,36 @@
 package pro.kaczynska.training.dagger;
 
+import android.content.res.Resources;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import pro.kaczynska.training.ErrorMessage;
 import pro.kaczynska.training.TrainingApplication;
+import pro.kaczynska.training.views.ErrorMessage;
 
 /**
  * Created by mky on 08.06.2017.
  */
 
 @Module
-public class TraningApplicationModule {
+public class TrainingApplicationModule {
     private final TrainingApplication trainingApplication;
 
-    public TraningApplicationModule(TrainingApplication trainingApplication) {
+    public TrainingApplicationModule(TrainingApplication trainingApplication) {
         this.trainingApplication = trainingApplication;
     }
 
 
-    @Provides
     @Singleton
+    @Provides
     public ErrorMessage provideErrorMessage() {
         return new ErrorMessage();
+    }
+
+    @Singleton
+    @Provides
+    public Resources provideResources() {
+        return trainingApplication.getResources();
     }
 }

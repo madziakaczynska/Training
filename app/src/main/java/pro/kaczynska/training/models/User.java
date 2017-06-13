@@ -7,7 +7,9 @@ import android.databinding.Bindable;
 import pro.kaczynska.training.R;
 
 
-public class User extends BaseObservable {
+public class User {
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
 
@@ -16,12 +18,11 @@ public class User extends BaseObservable {
         password = resources.getString(R.string.password_value);
     }
 
-    @Bindable
+
     public String getEmail() {
         return email;
     }
 
-    @Bindable
     public String getPassword() {
         return password;
     }

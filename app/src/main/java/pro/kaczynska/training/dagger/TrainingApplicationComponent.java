@@ -3,7 +3,8 @@ package pro.kaczynska.training.dagger;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import pro.kaczynska.training.ValidateFieldStrategy;
+import pro.kaczynska.training.strategy.ValidateFieldStrategy;
+import pro.kaczynska.training.views.ErrorMessage;
 
 
 /**
@@ -11,7 +12,9 @@ import pro.kaczynska.training.ValidateFieldStrategy;
  */
 
 @Singleton
-@Component(modules = {TraningApplicationModule.class})
+@Component(modules = {TrainingApplicationModule.class})
 public interface TrainingApplicationComponent {
     void inject(ValidateFieldStrategy strategy);
+
+    void inject(ErrorMessage errorMessage);
 }
