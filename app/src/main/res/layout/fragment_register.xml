@@ -45,7 +45,7 @@
             app:layout_constraintTop_toBottomOf="@+id/first_name" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -70,7 +70,7 @@
             android:text="@{registerViewModel.password}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
+            app:layout_constraintTop_toBottomOf="@+id/field" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

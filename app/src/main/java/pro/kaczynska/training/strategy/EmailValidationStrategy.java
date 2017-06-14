@@ -1,5 +1,6 @@
 package pro.kaczynska.training.strategy;
 
+import android.text.TextUtils;
 import android.util.Patterns;
 
 import java.util.regex.Pattern;
@@ -11,7 +12,6 @@ import pro.kaczynska.training.ObservableString;
  */
 
 public class EmailValidationStrategy extends ValidateFieldStrategy {
-    private boolean checkNotRequired = false;
 
     @Override
     String getFieldRequiredMessage() {
@@ -25,16 +25,15 @@ public class EmailValidationStrategy extends ValidateFieldStrategy {
 
     @Override
     boolean isFieldFilled(ObservableString field) {
-        return checkNotRequired || !field.get().isEmpty();
+        return !field.get().isEmpty();
     }
 
     @Override
     boolean isValueValid(ObservableString field) {
+        if (TextUtils.isEmpty(field.get())) {
+            return true;
+        }
         Pattern fieldPattern = Patterns.EMAIL_ADDRESS;
         return fieldPattern.matcher(field.get()).matches();
-    }
-
-    public void setCheckNotRequired(boolean checkNotRequired) {
-        this.checkNotRequired = checkNotRequired;
     }
 }

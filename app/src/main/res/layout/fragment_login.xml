@@ -7,9 +7,19 @@
 
         <import type="pro.kaczynska.training.viewModels.LoginViewModel" />
 
+        <import type="pro.kaczynska.training.viewModels.FieldViewModel" />
+
         <variable
             name="loginViewModel"
             type="pro.kaczynska.training.viewModels.LoginViewModel" />
+
+        <variable
+            name="emailViewModel"
+            type="pro.kaczynska.training.viewModels.FieldViewModel" />
+
+        <variable
+            name="passwordViewModel"
+            type="pro.kaczynska.training.viewModels.FieldViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -52,10 +62,9 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="30dp"
-            app:errorEnabled="@{loginViewModel.errorEnabled}"
-            app:error="@{loginViewModel.emailError}"
-            app:errorTextAppearance="@{loginViewModel.textStyle}"
-            app:hintTextAppearance="@{loginViewModel.textStyle}"
+            app:error="@{loginViewModel.emailViewModel.error}"
+            app:errorTextAppearance="@{loginViewModel.emailViewModel.textAppearance}"
+            app:hintTextAppearance="@{loginViewModel.emailViewModel.textAppearance}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -66,7 +75,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/email_hint"
                 android:inputType="textEmailAddress"
-                android:text="@{loginViewModel.email}" />
+                android:text="@{loginViewModel.emailViewModel.field}"
+                app:onFocusChange="@{loginViewModel.emailViewModel.onFocusChange}" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -76,10 +86,9 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="30dp"
-            app:errorEnabled="@{loginViewModel.errorEnabled}"
-            app:error="@{loginViewModel.passwordError}"
-            app:errorTextAppearance="@{loginViewModel.textStyle}"
-            app:hintTextAppearance="@{loginViewModel.textStyle}"
+            app:error="@{loginViewModel.passwordViewModel.error}"
+            app:errorTextAppearance="@{loginViewModel.passwordViewModel.textAppearance}"
+            app:hintTextAppearance="@{loginViewModel.passwordViewModel.textAppearance}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/login_email_layout">
@@ -89,9 +98,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password_hint"
-                app:onFocusChangeListener="@{viewModel.onFocusChanged}"
                 android:inputType="numberPassword"
-                android:text="@{loginViewModel.password}" />
+                android:text="@{loginViewModel.passwordViewModel.field}"
+                app:onFocusChange="@{loginViewModel.passwordViewModel.onFocusChange}" />
         </android.support.design.widget.TextInputLayout>
 
     </android.support.constraint.ConstraintLayout>

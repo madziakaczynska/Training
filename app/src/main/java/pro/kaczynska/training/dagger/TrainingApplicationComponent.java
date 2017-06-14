@@ -15,6 +15,5 @@ import pro.kaczynska.training.views.ErrorMessage;
 @Component(modules = {TrainingApplicationModule.class})
 public interface TrainingApplicationComponent {
     void inject(ValidateFieldStrategy strategy);
-
     void inject(ErrorMessage errorMessage);
 }

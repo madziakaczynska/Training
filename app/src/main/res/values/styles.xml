@@ -6,15 +6,23 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@android:color/darker_gray</item>
+        <item name="colorControlActivated">@android:color/holo_blue_dark</item>
+        <item name="colorControlHighlight">@android:color/holo_red_dark</item>
     </style>
 
-    <style name="textinput_inprogress" parent="@android:style/TextAppearance">
+    <style name="textinput_active" parent="@android:style/TextAppearance">
         <item name="android:textColor">@android:color/holo_blue_dark</item>
         <item name="android:textSize">12dp</item>
     </style>
 
     <style name="textinput_error" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@android:color/holo_red_dark</item>
+    <item name="android:textColor">@android:color/holo_red_dark</item>
+    <item name="android:textSize">12dp</item>
+</style>
+
+    <style name="textinput_inactive" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/darker_gray</item>
         <item name="android:textSize">12dp</item>
     </style>
 

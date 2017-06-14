@@ -25,7 +25,6 @@ public class LoginFragment extends LifecycleFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         loginBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
         LoginViewModel loginViewModel = new LoginViewModel();
         loginBinding.setLoginViewModel(loginViewModel);

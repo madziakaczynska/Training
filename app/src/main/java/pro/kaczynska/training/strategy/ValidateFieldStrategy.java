@@ -23,15 +23,16 @@ public abstract class ValidateFieldStrategy {
 
     public boolean checkField(ObservableString field, ObservableString error) {
         String errorText = null;
-        boolean isInProgress = true;
+        boolean isFieldValid = true;
         if (!isFieldFilled(field)) {
             errorText = getFieldRequiredMessage();
+            isFieldValid = false;
         } else if (!isValueValid(field)) {
             errorText = getInvalidFieldMessage();
-            isInProgress = false;
+            isFieldValid = false;
         }
         error.set(errorText);
-        return isInProgress;
+        return isFieldValid;
     }
 
     abstract String getFieldRequiredMessage();

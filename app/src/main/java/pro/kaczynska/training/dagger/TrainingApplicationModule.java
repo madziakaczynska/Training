@@ -6,7 +6,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import pro.kaczynska.training.ObservableString;
 import pro.kaczynska.training.TrainingApplication;
+import pro.kaczynska.training.strategy.ValidateFieldStrategy;
 import pro.kaczynska.training.views.ErrorMessage;
 
 /**
